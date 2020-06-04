@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+
 
 # * Add a REPL parser to `adv.py` that accepts directional commands to move the player
 #   * After each move, the REPL should print the name and description of the player's current room
@@ -33,6 +35,10 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+
+#print(joey)
+#print(room['outside'])
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -43,3 +49,41 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+
+
+player_name = input("Enter your player name -> ")
+
+player = Player(player_name, room["outside"])
+
+while True:
+    print(f"Current Room: {player.current_room}")
+    #add split later
+    user_input = input("enter direction -> ").lower()
+    if user_input == "n":
+        #if movement not allowed, 
+        if player.current_room.n_to is None:
+            print("There is no passage to the North! Try again")
+        #if movement IS allowed,
+        else:
+            # move user
+            player.travel('n')
+    elif user_input == "s":
+        if player.current_room.s_to is None:
+            print("There is no passage to the South! Try again")
+        else: 
+            player.travel('s')
+    elif user_input == "e":
+        if player.current_room.e_to is None:
+            print("There is no passage to the East! Try again")
+        else: 
+            player.travel('e')
+    elif user_input == "w":
+        if player.current_room.w_to is None:
+            print("There is no passage to the West! Try again")
+        else: 
+            player.travel('w')
+    elif user_input == "q":
+        print("so long!")
+        exit()
