@@ -1,3 +1,4 @@
+import textwrap
 from room import Room
 from player import Player
 
@@ -58,16 +59,18 @@ player_name = input("Enter your player name -> ")
 player = Player(player_name, room["outside"])
 
 while True:
-    print(f"Current Room: {player.current_room}")
+    print(f"Current Room: {player.current_room.name}")
+    for line in textwrap.wrap(player.current_room.description):
+        print(line)
     #add split later
     user_input = input("enter direction -> ").lower()
-    if user_input == "n":
-        #if movement not allowed, 
+
+    if user_input not in ['n', 's', 'e', 'w', 'q']:
+        print("Input needs to be q, n, s, e, or w")
+    elif user_input == "n":
         if player.current_room.n_to is None:
             print("There is no passage to the North! Try again")
-        #if movement IS allowed,
         else:
-            # move user
             player.travel('n')
     elif user_input == "s":
         if player.current_room.s_to is None:
